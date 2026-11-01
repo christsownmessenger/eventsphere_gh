@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EventSphere GH — Find · Book · Celebrate</title>
+<meta name="description" content="Ghana's premier event vendor marketplace. Discover top DJs, photographers, decorators, caterers, and MCs. Send inquiries directly to vendors via WhatsApp.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { ink: { 950:'#0a0710', 900:'#120c1c', 800:'#1a1226' } },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+    }
+  }
+}
+</script>
+</head>
+<body class="min-h-screen text-slate-100 antialiased selection:bg-fuchsia-500/30">
+
+<!-- Ambient glows -->
+<div class="glow-orb" style="top:-100px; left:50%; transform:translateX(-50%); width:600px; height:350px; background:rgba(236,72,153,.15);"></div>
+<div class="glow-orb" style="bottom:-100px; right:0; width:500px; height:500px; background:rgba(168,85,247,.10);"></div>
+
+<!-- ============ NAVBAR ============ -->
+<header class="sticky top-0 z-40 glass border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <a href="#top" class="flex items-center space-x-3">
+      <div class="h-10 w-10 rounded-xl brand-gradient p-0.5 shadow-lg shadow-fuchsia-500/20">
+        <div class="h-full w-full rounded-[10px] flex items-center justify-center" style="background:#0a0710;">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16 2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3Z"/></svg>
+        </div>
+      </div>
+      <div>
+        <span class="text-xl font-black tracking-tight brand-text">EventSphere GH</span>
+        <span class="block text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Find · Book · Celebrate</span>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+      <a href="#explore" class="hover:text-amber-300 transition-colors">Explore Vendors</a>
+      <a href="#packages" class="hover:text-amber-300 transition-colors">Packages</a>
+      <a href="#reviews" class="hover:text-amber-300 transition-colors">Reviews</a>
+      <a href="#plans" class="hover:text-amber-300 transition-colors">For Vendors</a>
+    </nav>
+    <button onclick="openBooking()" class="relative group overflow-hidden rounded-full p-[1px] focus:outline-none">
+      <span class="absolute inset-0 brand-gradient rounded-full"></span>
+      <span class="relative px-5 py-2.5 rounded-full text-xs font-semibold text-rose-100 flex items-center gap-2 transition-colors" style="background:#0a0710;">
+        <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M3 11h18M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z"/></svg>
+        Book a Vendor
+      </span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative pt-12 pb-24 lg:pt-20 lg:pb-28">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-medium text-amber-300 mb-8">
+      <svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2 9.5 9 2 9.5l6 5-2 7.5L12 18l6 4-2-7.5 6-5L14.5 9 12 2Z"/></svg>
+      Ghana's Premier Event Vendor Marketplace
+    </div>
+
+    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight">
+      Find · Book · <span class="brand-text">Celebrate</span>
+    </h1>
+    <p class="mt-6 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+      Discover top DJs, photographers, decorators, caterers, and MCs across Ghana. Send inquiries straight to vendors on WhatsApp — no middleman, no delay.
+    </p>
+
+    <div id="categoryTabs" class="mt-10 flex flex-wrap justify-center gap-2 max-w-3xl mx-auto glass p-1.5 rounded-2xl"></div>
+
+    <div class="mt-6 max-w-4xl mx-auto glass p-3 sm:p-4 rounded-2xl flex flex-col md:flex-row items-center gap-3">
+      <div class="flex-1 flex items-center gap-3 px-4 py-3 rounded-xl w-full" style="background:rgba(10,7,16,.6); border:1px solid rgba(255,255,255,.06);">
+        <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchQuery" type="text" placeholder="Search DJs, photographers, decorators, caterers..." class="bg-transparent text-sm text-slate-100 placeholder-slate-500 focus:outline-none w-full" />
+      </div>
+      <div class="flex-1 flex items-center gap-3 px-4 py-3 rounded-xl w-full" style="background:rgba(10,7,16,.6); border:1px solid rgba(255,255,255,.06);">
+        <svg class="w-5 h-5 text-rose-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input id="locationQuery" type="text" value="Ho, Volta Region" class="bg-transparent text-sm text-slate-100 focus:outline-none w-full" />
+      </div>
+      <button onclick="document.getElementById('explore').scrollIntoView({behavior:'smooth'})" class="w-full md:w-auto px-8 py-3.5 brand-gradient rounded-xl font-semibold text-sm text-white shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 shrink-0">
+        Search & Book
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto border-t border-white/5 pt-8 text-center">
+      <div><p class="text-2xl font-bold text-white">250+</p><p class="text-xs text-slate-400 mt-1">Verified Vendors</p></div>
+      <div><p class="text-2xl font-bold text-white">4.9 / 5.0</p><p class="text-xs text-slate-400 mt-1">Avg Client Rating</p></div>
+      <div><p class="text-2xl font-bold text-white">1,200+</p><p class="text-xs text-slate-400 mt-1">Events Booked</p></div>
+      <div><p class="text-2xl font-bold text-white">100%</p><p class="text-xs text-slate-400 mt-1">Satisfaction Guarantee</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORY PILLARS ============ -->
+<section class="py-16 border-y border-white/5" style="background:rgba(18,12,28,.5);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white">Five Pillars of a Perfect Event</h2>
+      <p class="text-slate-400 text-sm mt-2">Pick your category and connect with Ghana's top talent.</p>
+    </div>
+    <div id="pillars" class="grid md:grid-cols-3 lg:grid-cols-5 gap-6"></div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE VENDORS ============ -->
+<section id="explore" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+    <div>
+      <span class="text-xs font-semibold uppercase tracking-widest text-amber-400">Handpicked Talent</span>
+      <h2 class="text-3xl font-extrabold text-white mt-1">Featured Event Vendors</h2>
+      <p class="text-slate-400 text-sm mt-2">Curated top-rated vendors across Volta Region and Greater Accra.</p>
+    </div>
+  </div>
+  <div id="vendorGrid" class="grid md:grid-cols-3 gap-8"></div>
+</section>
+
+<!-- ============ PACKAGES / SERVICES ============ -->
+<section id="packages" class="py-20 border-t border-white/5" style="background:rgba(18,12,28,.4);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-semibold uppercase tracking-widest text-purple-400">A La Carte Packages</span>
+      <h2 class="text-3xl font-extrabold text-white mt-1">Individual Packages & Pricing</h2>
+      <p class="text-slate-400 text-sm mt-2">Select a package below to send an inquiry directly to the vendor on WhatsApp.</p>
+    </div>
+    <div id="packageGrid" class="grid md:grid-cols-2 gap-6"></div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section id="reviews" class="py-20 border-t border-white/5" style="background:rgba(18,12,28,.3);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div>
+        <span class="text-xs font-semibold uppercase tracking-widest text-rose-400">Verified Client Experiences</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">What Ghana Says About Us</h2>
+      </div>
+    </div>
+    <div id="reviewGrid" class="grid md:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<!-- ============ LIVE CLIENT SITES ============ -->
+<section class="py-16 border-t border-white/5" style="background:rgba(18,12,28,.8);">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-2xl font-extrabold text-white mb-2">See Our Work in Action</h2>
+    <p class="text-slate-400 text-sm mb-8">I build custom booking sites for Ho vendors. Click below to see live examples.</p>
+    
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="https://djsaqcess.vercel.app/" target="_blank" class="px-6 py-3 rounded-xl glass text-sm font-semibold text-amber-300 hover:border-amber-500 transition">DJ Saqcess ↗</a>
+      <a href="https://djthosis.vercel.app/" target="_blank" class="px-6 py-3 rounded-xl glass text-sm font-semibold text-amber-300 hover:border-amber-500 transition">DJ Thosis ↗</a>
+      <a href="https://marvlous-dish.vercel.app/" target="_blank" class="px-6 py-3 rounded-xl glass text-sm font-semibold text-amber-300 hover:border-amber-500 transition">Marvlous Dish ↗</a>
+      <a href="https://bels-rentals.vercel.app/" target="_blank" class="px-6 py-3 rounded-xl glass text-sm font-semibold text-amber-300 hover:border-amber-500 transition">Bels Rentals ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VENDOR PLANS ============ -->
+<section id="plans" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center max-w-2xl mx-auto mb-12">
+    <span class="text-xs font-semibold uppercase tracking-widest text-amber-400">For Vendors</span>
+    <h2 class="text-3xl font-extrabold text-white mt-1">Get Your Own Custom Site</h2>
+    <p class="text-slate-400 text-sm mt-2">Stop losing clients to vendors who look more professional online.</p>
+  </div>
+  <div id="planGrid" class="grid md:grid-cols-3 gap-8"></div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-white/5 pt-16 pb-12" style="background:#08050e;">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-12 border-b border-white/5">
+      <div class="col-span-2 md:col-span-1">
+        <div class="flex items-center gap-2">
+          <svg class="h-5 w-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16 2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3Z"/></svg>
+          <span class="font-bold text-white tracking-wider">EventSphere GH</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-3 leading-relaxed">The premier marketplace for Ghana's event vendors. Built for weddings, birthdays, corporate events, and outdoorings.</p>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Categories</h4>
+        <ul class="space-y-2 text-xs text-slate-400">
+          <li>DJs & Music</li>
+          <li>Photography & Video</li>
+          <li>Decoration</li>
+          <li>Catering</li>
+          <li>MCs & Hosts</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">For Vendors</h4>
+        <ul class="space-y-2 text-xs text-slate-400">
+          <li>List Your Business</li>
+          <li>Vendor Portal</li>
+          <li>Pricing Plans</li>
+          <li>Success Stories</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Contact</h4>
+        <ul class="space-y-2 text-xs text-slate-400">
+          <li>+233 55 096 9447</li>
+          <li>hello@eventsphere.gh</li>
+          <li>Ho, Volta Region, Ghana</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
+      <p>© 2026 EventSphere GH. All rights reserved. Built by Shalom Prince-Dike.</p>
+      <div class="flex gap-6 mt-4 md:mt-0">
+        <a href="#" class="hover:text-slate-300">Privacy</a>
+        <a href="#" class="hover:text-slate-300">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ BOOKING MODAL ============ -->
+<div id="bookingModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(10,7,16,.85); backdrop-filter: blur(8px);">
+  <div class="glass rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative overflow-hidden fade-in">
+    <div class="flex items-center justify-between pb-4 border-b border-white/5">
+      <div>
+        <h3 class="text-xl font-bold text-white">Send Inquiry to Vendor</h3>
+        <p id="modalVendorName" class="text-xs text-slate-400 mt-0.5">Select a vendor</p>
+      </div>
+      <button onclick="closeBooking()" class="p-2 rounded-full text-slate-400 hover:text-white transition-colors" style="background:#1a1226;">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 18 18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="flex items-center justify-between my-6 text-xs text-slate-400 font-medium">
+      <span id="stepLabel1" class="text-amber-400 font-bold">1. Vendor</span>
+      <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+      <span id="stepLabel2">2. Event Details</span>
+      <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+      <span id="stepLabel3">3. Review & Send</span>
+    </div>
+
+    <div id="step1">
+      <p class="text-xs text-slate-300 font-semibold mb-3">Choose Your Vendor:</p>
+      <div id="vendorSelector" class="grid grid-cols-2 gap-3"></div>
+      <div class="pt-4 flex justify-end">
+        <button onclick="goStep(2)" class="px-6 py-2.5 brand-gradient text-white font-semibold text-xs rounded-xl">Continue</button>
+      </div>
+    </div>
+
+    <div id="step2" class="hidden">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Event Date</label>
+          <input id="eventDate" type="date" class="w-full rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500" style="background:rgba(10,7,16,.8); border:1px solid rgba(255,255,255,.08);" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Event Type</label>
+          <div id="eventTypes" class="grid grid-cols-3 gap-2"></div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Guest Count</label>
+            <input id="guestCount" type="number" min="1" value="100" class="w-full rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none" style="background:rgba(10,7,16,.8); border:1px solid rgba(255,255,255,.08);" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Event Location</label>
+            <input id="eventLocation" type="text" value="Ho, Volta Region" class="w-full rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none" style="background:rgba(10,7,16,.8); border:1px solid rgba(255,255,255,.08);" />
+          </div>
+        </div>
+        <div class="pt-4 flex justify-between">
+          <button onclick="goStep(1)" class="px-4 py-2 text-slate-400 hover:text-white text-xs font-semibold">Back</button>
+          <button onclick="goStep(3)" class="px-6 py-2.5 brand-gradient text-white font-semibold text-xs rounded-xl">Review</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="step3" class="hidden">
+      <div class="rounded-xl p-4 text-xs space-y-2" style="background:rgba(10,7,16,.8); border:1px solid rgba(255,255,255,.06);">
+        <div class="flex justify-between"><span class="text-slate-400">Vendor:</span><span id="rvVendor" class="font-bold text-white"></span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Package:</span><span id="rvPackage" class="text-slate-300"></span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Event date:</span><span id="rvDate" class="text-amber-300 font-bold"></span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Event type:</span><span id="rvType" class="text-slate-300"></span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Guests:</span><span id="rvGuests" class="text-slate-300"></span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Location:</span><span id="rvLocation" class="text-slate-300"></span></div>
+        <div class="pt-2 border-t border-white/5 flex justify-between text-sm font-bold"><span>Estimated:</span><span id="rvPrice" class="text-emerald-400"></span></div>
+      </div>
+      <div class="space-y-2 mt-4">
+        <input id="clientName" type="text" placeholder="Your Full Name" class="w-full rounded-xl px-4 py-2 text-xs text-white" style="background:rgba(10,7,16,.8); border:1px solid rgba(255,255,255,.08);" />
+        <input id="clientPhone" type="tel" placeholder="Your WhatsApp Number" class="w-full rounded-xl px-4 py-2 text-xs text-white" style="background:rgba(10,7,16,.8); border:1px solid rgba(255,255,255,.08);" />
+      </div>
+      <div class="pt-4 flex justify-between items-center">
+        <button onclick="goStep(2)" class="px-4 py-2 text-slate-400 hover:text-white text-xs font-semibold">Back</button>
+        <button onclick="sendInquiry()" class="px-8 py-3 brand-gradient text-white font-bold text-xs rounded-xl shadow-lg flex items-center gap-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Send via WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <div id="successPanel" class="hidden py-12 text-center">
+      <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m5 13 4 4L19 7"/></svg>
+      </div>
+      <h4 class="text-2xl font-bold text-white">Inquiry Sent!</h4>
+      <p class="text-xs text-slate-400 max-w-md mx-auto mt-2">The vendor will contact you on WhatsApp within 24 hours to discuss details and send a quote.</p>
+      <button onclick="closeBooking()" class="mt-8 px-8 py-3 brand-gradient rounded-xl font-semibold text-xs text-white">Done</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
